@@ -7,19 +7,20 @@
 # @license: See the file 'LICENSE.txt
 
 
-import asp
-import java
-import php	
-import python
-import ruby
-import perl
+from . import asp
+from . import java
+from . import perl
+from . import php
+from . import python
+from . import ruby
 
-def Lang(content,headers):
-	return (
-		asp.Asp().run(content,headers),
-		java.Java().run(content,headers),
-		php.Php().run(content,headers),
-		perl.Perl().run(content,headers),
-		python.Python().run(content,headers),
-		ruby.Ruby().run(content,headers)
-		)
+
+def lang(content, headers):
+    return (
+        asp.Asp().run(content, headers),
+        java.Java().run(content, headers),
+        php.Php().run(content, headers),
+        perl.Perl().run(content, headers),
+        python.Python().run(content, headers),
+        ruby.Ruby().run(content, headers)
+    )

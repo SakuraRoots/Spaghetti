@@ -7,79 +7,86 @@
 # @license: See the file 'LICENSE.txt'
 
 from crawler import crawler
-from modules.fingerprints import checkall
+from modules.discovery.attack import attack
 from modules.discovery.brute import brute
+from modules.discovery.disclosure import disclosure
 from modules.discovery.other import other
 from modules.discovery.vulns import vulns
-from modules.discovery.attack import attack
-from modules.discovery.disclosure import disclosure
+from modules.fingerprints import checkall
 
-def fingerprints(agent,proxy,redirect,timeout,url,cookie):
-	checkall.Checkall(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
 
-def crawling(agent,proxy,redirect,timeout,url,cookie):
-	return crawler.Crawler(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).process()
+def fingerprints(agent, proxy, no_redirect, timeout, url, cookie):
+    checkall.Checkall(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()
 
-def bruteforce(agent,proxy,redirect,timeout,url,cookie):
-	brute.Brute(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
 
-def others(agent,proxy,redirect,timeout,url,cookie):
-	other.Other(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
+def crawling(agent, proxy, no_redirect, timeout, url, cookie):
+    return crawler.Crawler(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).process()
 
-def vuln(agent,proxy,redirect,timeout,url,cookie):
-	vulns.Vulns(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
 
-def attacks(agent,proxy,redirect,timeout,url,cookie):
-	attack.Attack(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
+def bruteforce(agent, proxy, no_redirect, timeout, url, cookie):
+    brute.Brute(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()
 
-def disc(agent,proxy,redirect,timeout,url,cookie):
-	disclosure.Disclosure(
-		agent = agent,
-		proxy = proxy,
-		redirect = redirect,
-		timeout = timeout,
-		url = url,
-		cookie = cookie
-		).run()
+
+def others(agent, proxy, no_redirect, timeout, url, cookie):
+    other.Other(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()
+
+
+def vuln(agent, proxy, no_redirect, timeout, url, cookie):
+    vulns.Vulns(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()
+
+
+def attacks(agent, proxy, no_redirect, timeout, url, cookie):
+    attack.Attack(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()
+
+
+def disc(agent, proxy, no_redirect, timeout, url, cookie):
+    disclosure.Disclosure(
+        agent=agent,
+        proxy=proxy,
+        redirect=not no_redirect,
+        timeout=timeout,
+        url=url,
+        cookie=cookie
+    ).run()

@@ -7,15 +7,16 @@
 # @license: See the file 'LICENSE.txt
 
 
-import drupal
-import joomla
-import wordpress
-import magento
+from . import drupal
+from . import joomla
+from . import magento
+from . import wordpress
 
-def Cms(content):
-	return (
-		drupal.Drupal().run(content),
-		joomla.Joomla().run(content),
-		wordpress.Wordpress().run(content),
-		magento.Magento().run(content)
-		)	
+
+def cms(content):
+    return (
+        drupal.Drupal().run(content),
+        joomla.Joomla().run(content),
+        wordpress.Wordpress().run(content),
+        magento.Magento().run(content)
+    )

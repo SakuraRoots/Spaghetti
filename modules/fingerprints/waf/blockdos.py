@@ -9,12 +9,13 @@
 
 import re
 
+
 class Blockdos:
-	@staticmethod
-	def run(headers):
-		_ = False
-		for item in headers.items():
-			_  = re.search(r'BlockDos[\.net]*',item[1],re.I) is not None
-			if _:
-				return "BlockDoS"
-				break
+    @staticmethod
+    def run(headers):
+        _ = False
+        for item in list(headers.items()):
+            _ = re.search(r'BlockDos(\.net)?', item[1], re.I) is not None
+            if _:
+                return "BlockDoS"
+

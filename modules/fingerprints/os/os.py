@@ -7,19 +7,20 @@
 # @license: See the file 'LICENSE.txt
 
 
-import bsd
-import linux
-import mac
-import solaris
-import unix 
-import windows
+from . import bsd
+from . import linux
+from . import mac
+from . import solaris
+from . import unix
+from . import windows
 
-def Os(headers):
-	return (
-		bsd.Bsd().run(headers),
-		windows.Windows().run(headers),
-		linux.Linux().run(headers),
-		solaris.Solaris().run(headers),
-		unix.Unix().run(headers),
-		mac.Mac().run(headers)
-		)
+
+def operating_system(headers):
+    return (
+        bsd.Bsd().run(headers),
+        windows.Windows().run(headers),
+        linux.Linux().run(headers),
+        solaris.Solaris().run(headers),
+        unix.Unix().run(headers),
+        mac.Mac().run(headers)
+    )

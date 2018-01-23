@@ -6,8 +6,9 @@
 # @author:  Momo Outaadi (M4ll0k)
 # @license: See the file 'LICENSE.txt
 
-def UTF8(string):
-	if isinstance(string,unicode):
-		return string.encode('UTF-8')
-	else:
-		return str(string)
+
+def utf_8(string):
+    if isinstance(string, str):
+        return string.encode('UTF-8')
+    else:
+        return str(string)

@@ -8,58 +8,61 @@
 
 import re
 
+from request import request
 from utils import output
 from utils import params
-from request import request
+from utils.data import read_data_file
+
 
 class Xpath:
-	def __init__(self,agent,proxy,redirect,timeout,urls,cookie):
-		self.urls = urls
-		self.cookie = cookie
-		self.output = output.Output()
-		self.request = request.Request(
-			agent = agent,
-			proxy = proxy,
-			redirect = redirect,
-			timeout = timeout
-			)
-	
-	def run(self):
-		info = {
-		'name'        : 'XPath',
-		'fullname'    : 'XPath Injection',
-		'author'      : 'Momo Outaadi (M4ll0k)',
-		'description' : 'Find XPATH Injection'
-		}
-		db = open('data/xpath.txt','rb')
-		dbfiles = [x.split('\n') for x in db]
-		self.output.test('Checking xpath injection...')
-		try:
-			for payload in dbfiles:
-				for url in self.urls:
-					# replace queries with payload
-					param = params.Params(url,payload[0]).process()
-					if len(param) > 1:
-						for para in param:
-							resp = self.request.send(
-								url = para,
-								method = "GET",
-								payload = None,
-								headers = None,
-								cookies = self.cookie
-								)
-							if re.search(r'XPATH syntax error:|XPathException',resp.content,re.I):
-								self.output.plus('That site is may be vulnerable to XPath Injection at %s'%para)
-					
-					elif len(param) == 1:
-						resp = self.request.send(
-							url = param[0],
-							method = "GET",
-							payload = None,
-							headers = None,
-							cookies = self.cookie
-							)
-						if re.search(r'XPATH syntax error:|XPathException',resp.content,re.I):
-							self.output.plus('That site is may be vulnerable to XPath Injection at %s'%param[0])
-		except Exception,e:
-			pass
+    def __init__(self, agent, proxy, redirect, timeout, urls, cookie):
+        self.urls = urls
+        self.cookie = cookie
+        self.output = output.Output()
+        self.request = request.Request(
+            agent=agent,
+            proxy=proxy,
+            redirect=redirect,
+            timeout=timeout
+        )
+
+    def run(self):
+        info = {
+            'name': 'XPath',
+            'fullname': 'XPath Injection',
+            'author': 'Momo Outaadi (M4ll0k)',
+            'description': 'Find XPATH Injection'
+        }
+        self.output.test('Checking xpath injection...')
+
+        dbfiles = read_data_file('data/xpath.txt')
+
+        try:
+            for payload in dbfiles:
+                for url in self.urls:
+                    # replace queries with payload
+                    param = params.Params(url, payload[0]).process()
+                    if len(param) > 1:
+                        for para in param:
+                            resp = self.request.send(
+                                url=para,
+                                method="GET",
+                                payload=None,
+                                headers=None,
+                                cookies=self.cookie
+                            )
+                            if re.search(r'XPATH syntax error:|XPathException', resp.content, re.I):
+                                self.output.plus('That site is may be vulnerable to XPath Injection at %s' % para)
+
+                    elif len(param) == 1:
+                        resp = self.request.send(
+                            url=param[0],
+                            method="GET",
+                            payload=None,
+                            headers=None,
+                            cookies=self.cookie
+                        )
+                        if re.search(r'XPATH syntax error:|XPathException', resp.content, re.I):
+                            self.output.plus('That site is may be vulnerable to XPath Injection at %s' % param[0])
+        except Exception:
+            pass

@@ -9,12 +9,13 @@
 
 import re
 
-class Wallarm():
+
+class Wallarm:
     @staticmethod
     def run(headers):
         _ = False
-        for item in headers.items():
-            _  = re.search(r'nginx-wallarm',item[1],re.I) is not None
+        for item in list(headers.items()):
+            _ = re.search(r'nginx-wallarm', item[1], re.I) is not None
             if _:
                 return "Wallarm Web Application Firewall (Wallarm)"
-                break
+
